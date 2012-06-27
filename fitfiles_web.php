@@ -81,7 +81,26 @@ case "signup":
 			
 			break;
 
-		 	  							
+case "addClient":
+
+			$user_obj=new User();
+			unset($params["op"]);
+			if(isset($params["client_id"]))
+			{
+				$user_obj->updateClient($params);
+				$result["info"]["client_id"]=$params["client_id"];
+				
+			}else
+			{
+				$result["info"]["client_id"]=$user_obj->addClient($params);
+			}
+			
+			$output = array("is_error"=>"","error"=>"");
+			
+			$result["status"]=$output;
+			break;	
+
+case 		 	  							
 default:
 			
 		$output = array("is_error"=>"yes","error"=>"Request type not supported");		

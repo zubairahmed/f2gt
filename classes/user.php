@@ -82,8 +82,33 @@ class User {
 		
 	}
 	
+	function addClient($client_info)
+	{
+		return $this->db->insert("clients",$client_info);	
+	}
 	
+	function updateClient($client_info)
+	{
+			return $this->db->update("clients",$client_info,"client_id=".$client_info["client_id"]);		
+	}
 		
+	function getClientList($trainer_id,$client_name,$client_phone)
+	{
+			
+		$sql=sprintf("select * from clients where trainer_id=%d",$trainer_id);
+		
+		if(!empty($client_name))
+		{
+			$sql.=" and ( first_name like ('%".$client_name."%') ||	last_name like ('%".$client_name."%')"; 
+		}
+		
+		if(!empty($client_phone))
+		{
+			$sql=" and phone like ('%".$client_phone."%')";
+		}
+		$this->db->query($sql);
+		
+	}
 }
 
 ?>
